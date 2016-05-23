@@ -3,6 +3,8 @@
 # Simple-Bisection Pruning Algorithm
 ###
 
+import numpy as np
+
 ###
 # Instructions:
 # Implement Simple-Bisection Pruning Algorithm
