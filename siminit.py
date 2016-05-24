@@ -5,6 +5,8 @@
 
 import random
 from math import sqrt
+from _heapq import heapify, heappush, heappop
+from _ast import Num
 
 ###
 # Instructions:
@@ -38,6 +40,8 @@ class node:
         self.x = loc_x
         self.y = loc_y
         self.neighbors = []
+        self.dist = float("inf")
+        self.prev = None
     #===========================================================================
     # def add_neighbor(self, cost, target):
     #     self.neighbors.append(link(cost,target))
@@ -48,11 +52,49 @@ class node:
         return self.neighbors
     def coordinates(self):
         return self.x , self.y
+    def set_dist(self, num):
+        self.dist = num
+    def set_prev(self, node):
+        self.prev = node
+    def get_dist(self):
+        return self.dist
+    def get_prev(self):
+        return self.prev
+    def __lt__(self, other):
+        return self.dist < other.dist
     
 def djikstra(nodes,links,source,dest):
     route = []
-    #do things
-    return route
+    vertexes = []
+    for v in nodes:
+        v.set_dist(float("inf"))
+        v.set_prev(None)
+        heappush(vertexes, v)
+    source.set_dist(0)
+    heapify(vertexes)
+    while vertexes:
+        unsorted = False
+        u = heappop(vertexes)
+        if u == dest:
+            break #because we found the destination no need to look further
+        for v in u.get_links():
+            alt = u.get_dist() + v.get_cost()
+            target = v.get_target()
+            if alt < target.get_dist():
+                target.set_dist = alt
+                target.set_prev = u
+                unsorted = True #just a variable that help check if changes were made to the objects inside the heap
+        if unsorted: #because i updated the variables but the heap wasn't maintained, i just heapify it again
+            heapify(vertexes) 
+    #this is the part that saves the distance and route  
+    if dest.get_dist() == float("inf"): #if there is no route then we just return None
+        return None
+    u = dest
+    while u.get_prev() != None:
+        route.insert(0, u)
+        u = u.get_prev()
+    route.append(u)
+    return dest.get_dist(), route
 
 def cost(route):
     totcost = 0
