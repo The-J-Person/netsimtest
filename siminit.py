@@ -50,6 +50,11 @@ class node:
         self.neighbors.append(li)
     def get_links(self):
         return self.neighbors
+    def get_specific_link(self, node):
+        for link in self.neighbors:
+            if link.get_target() == node:
+                return link
+        return None
     def coordinates(self):
         return self.x , self.y
     def set_dist(self, num):
@@ -91,10 +96,10 @@ def djikstra(nodes,links,source,dest):
         return None
     u = dest
     while u.get_prev() != None:
-        route.insert(0, u)
-        u = u.get_prev()
-    route.append(u)
-    return dest.get_dist(), route
+        v = u.get_prev()
+        route.insert(0, v.get_specific_link(u)) 
+        u = v
+    return route
 
 def cost(route):
     totcost = 0
