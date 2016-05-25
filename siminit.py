@@ -86,8 +86,8 @@ def djikstra(nodes,links,source,dest):
             alt = u.get_dist() + 1
             target = v.get_target()
             if alt < target.get_dist():
-                target.set_dist = alt
-                target.set_prev = u
+                target.set_dist(alt)
+                target.set_prev(u)
                 unsorted = True #just a variable that help check if changes were made to the objects inside the heap
         if unsorted: #because i updated the variables but the heap wasn't maintained, i just heapify it again
             heapify(vertexes) 
