@@ -40,4 +40,3 @@ def simple_bisection_pruning(nodes,org_links,source,target, constraint, search_c
         links = temporaryE.copy()
         search -= 1
     return saved_route
-        

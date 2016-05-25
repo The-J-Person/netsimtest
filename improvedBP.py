@@ -17,31 +17,33 @@ from siminit import link,node,djikstra,cost
 L = 75.0
 #
 #
-
-def improved_bisection_pruning(nnodes,nlinks,source,target):
-    newlen = 'R'
-    oldlen = 'R'
+"""
+missing information: epsilon value (pruning factor) 
+"""
+def improved_bisection_pruning(nodes,org_links,source,target, constraint, fails_allowed = 3, R = 75, epsilon = 0.75):
+    newlen = R
+    oldlen = R
     search = 1
-    TemporaryE = source
-    SavedRoute = None
-    nodes = nnodes.clone()
-    links = nlinks.clone()
-    while search!=0:
+    links = org_links.copy()
+    temporaryE = links.copy()
+    saved_route = None
+    while search != 0:
         route = djikstra(nodes, links, source, target)
-        if route is not None and len(route)<=L:
+        if route != None and len(route) <= L:
             oldlen=newlen
-            SavedRoute = route
-            PathConcaveCost = cost(route)
-            for link in <node>.links(): #What do I even put here
-                if cost(route)>=epsilon*PathConcaveCost :
-                    route.remove(link)
-                    newlen=PruningFactor*PathConcaveCost;
-        else :
-            for link in <node>.links():
-                if li.cost>=(newlen+oldlen)/2:
-                    route.remove(link)
+            saved_route = route
+            path_concave_cost = cost(route)
+            for link in links():
+                if cost(route) >= epsilon*path_concave_cost:
+                    links.remove(link)
+            newlen = epsilon * path_concave_cost;
+        else:
+            links = temporaryE.copy()
+            for link in links():
+                if link.cost >= (newlen+oldlen)/2:
+                    links.remove(link)
             newlen=(newlen+oldlen)/2
-            NumberOfFail -= 1
-            if NumberOfFail == 0 :
+            fails_allowed -= 1
+            if fails_allowed == 0 :
                 search = 0            
-    return SavedRoute
+    return saved_route
