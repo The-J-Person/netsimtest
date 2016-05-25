@@ -102,10 +102,11 @@ def djikstra(nodes,links,source,dest):
     return route
 
 def cost(route):
-    totcost = 0
+    cost = 0
     for li in route:
-        totcost += li.get_cost()
-    return totcost
+        if cost<li.get_cost():
+            cost=li.get_cost()
+    return cost
 
 def Initialite_Random_Graph(rect_x=800,rect_y=800,nodes_amount=420,link_dist=75):
     graph = [[None]*rect_x]*rect_y
