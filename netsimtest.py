@@ -62,20 +62,23 @@ def simulation_process(search_count, number_of_iteration):
         
         hops = max_hops()
 #         print(node)
-#         simple_b_pruning = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops, search_count )
+        simple_b_pruning = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops, search_count )
         improved_b_pruning = improvedBP.improved_bisection_pruning(node , links , node[source], node[target],hops)
-#         print(simple_b_pruning)
-#         if(simple_b_pruning != None):
-#             avg_sim_dict[hops][0] += siminit.cost(simple_b_pruning)
-#             avg_sim_dict[hops][1] += 1
-#         else:
-#             fail_sim += 1
+        print(simple_b_pruning)
+        if(simple_b_pruning != None):
+            avg_sim_dict[hops][0] += siminit.cost(simple_b_pruning)
+            avg_sim_dict[hops][1] += 1
+        else:
+            fail_sim += 1
 #         sum_imp += siminit.cost(improved_b_pruning)
         if(improved_b_pruning != None):
             avg_imp_dict[hops][0] += siminit.cost(improved_b_pruning)
             avg_imp_dict[hops][1] += 1
         else:
             fail_imp += 1
+            
+        print("finished round:" , x)
+    print("finished everything")
         
 #     for i in range(5,31):
 #         if(avg_sim_dict[i][1] > 0):
@@ -132,5 +135,5 @@ def max_hops():
 
 
 
-simulation_process(count, 500)
+simulation_process(count, 35)
      

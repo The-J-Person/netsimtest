@@ -27,7 +27,7 @@ def simple_bisection_pruning(nodes,links,source,target, constraint, search_count
         epsilon = (L+U) / 2
         for link in links:
             if link.get_cost() >= epsilon * path_concave_cost:
-                links.remove(link)
+                link.set_enabled(False)
         route = djikstra(nodes,links,source,target)
         if route != None and len(route) <= constraint:
             saved_route = route
