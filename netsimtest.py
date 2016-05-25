@@ -19,8 +19,10 @@
 
 import simpleBP,improvedBP,siminit
 import random
-import plotly.plotly as py
-import plotly.graph_objs as go
+import matplotlib.pyplot as plt
+
+# import plotly.plotly as py
+# import plotly.graph_objs as go
 
 random.seed()
 count = 3
@@ -44,8 +46,9 @@ def simulation_process(search_count, number_of_iteration):
     
      
      
-    node, links = siminit.Initialite_Random_Graph()
+    
     for x in range(number_of_iteration):
+        node, links = siminit.Initialite_Random_Graph()
         source = randomal(node)
         target = randomal(node)
         while target == source:
@@ -65,30 +68,36 @@ def simulation_process(search_count, number_of_iteration):
     for i in range(5,31):
         if(avg_sim_dict[i][1] > 0):
             test_avg = avg_sim_dict[i][0] / avg_sim_dict[i][1]
+            avg_hop.append(test_avg)
             print("Max Hops = " , i , "Average" , test_avg , "Count",avg_sim_dict[i][1])
             
     
     for i in range(5,30):
         if(avg_sim_dict[i][1] > 0):
-            max_hop.append(avg_sim_dict[i][1])
-            avg_hop.append(avg_sim_dict[i][0])
-             
-    trace0 = go.Scatter(
-    x = max_hop,
-    y = avg_hop,
-    name = 'Simple',
-    line = dict(
-        color = ('rgb(205, 12, 24)'),
-        width = 4))
+            max_hop.append(i)
+#             avg_hop.append(avg_sim_dict[i][0])
+    print(max_hop)
+    print(avg_hop)
     
-    layout = dict(title = 'Average cost when max H is changing',
-              xaxis = dict(title = 'Max-Hop'),
-              yaxis = dict(title = 'Avg Longest Link'),
-              )
-
-# Plot and embed in ipython notebook!
-    fig = dict(data=data, layout=layout)
-    py.iplot(fig, filename='styled-line')
+    plt.plot(max_hop, avg_hop)
+    plt.axis([5, 31, 0, 80])
+    plt.show()         
+#     trace0 = go.Scatter(
+#     x = max_hop,
+#     y = avg_hop,
+#     name = 'Simple',
+#     line = dict(
+#         color = ('rgb(205, 12, 24)'),
+#         width = 4))
+#     
+#     layout = dict(title = 'Average cost when max H is changing',
+#               xaxis = dict(title = 'Max-Hop'),
+#               yaxis = dict(title = 'Avg Longest Link'),
+#               )
+# 
+# # Plot and embed in ipython notebook!
+#     fig = dict(data=data, layout=layout)
+#     py.iplot(fig, filename='styled-line')
        
 #     if(fail_sim > 0):
 #         avr_sim = sum_sim / (number_of_iteration - fail_sim)
