@@ -13,8 +13,8 @@ from siminit import link,node,djikstra,cost
 ###
 
 def simple_bisection_pruning(nodes,org_links,source,target, constraint, search_count):
-    links = org_links.copy()
-    temporaryE = links.copy()
+    links = org_links[:]
+    temporaryE = links[:]
     saved_route = None
     route = djikstra(nodes,links,source,target)
     if route != None and len(route) <= constraint:
@@ -37,6 +37,6 @@ def simple_bisection_pruning(nodes,org_links,source,target, constraint, search_c
             U = (L+U) / 2
         else:
             L = (L+U) / 2
-        links = temporaryE.copy()
+        links = temporaryE[:]
         search -= 1
     return saved_route
