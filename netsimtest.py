@@ -3,19 +3,109 @@
 # Runs simulation based 
 ###
 
-###
-# Instructions:
-# Each simulation consists of initiating a random graph and one of the two algorithms times.
-# For each initialization, select a number* of node pairs (source&target),
-# and the variable H_max.
-#     "For each routing case, a constraint on the number on the number of hops must be satisfied...
-#      This constraint constraint is selected randomly from the range [10,H_max]."
-# * The number of nodes selected and the nodes themselves are to be based on the uniform distribution.
-# 
-# Record number of successes. Record average number of hops (for successes ONLY)
-# Record Success Ratio ( = Number of Tries/Number of Successes )
-# Record Overall Performance ( = 75*(Success Ratio/Average Cost) )
-###
+##
+#  Instructions:
+#  Each simulation consists of initiating a random graph and one of the two algorithms times.
+#  For each initialization, select a number* of node pairs (source&target),
+#  and the variable H_max.
+#      "For each routing case, a constraint on the number on the number of hops must be satisfied...
+#       This constraint constraint is selected randomly from the range [10,H_max]."
+#  * The number of nodes selected and the nodes themselves are to be based on the uniform distribution.
+#  
+#  Record number of successes. Record average number of hops (for successes ONLY)
+#  Record Success Ratio ( = Number of Tries/Number of Successes )
+#  Record Overall Performance ( = 75*(Success Ratio/Average Cost) )
+##
 
 import simpleBP,improvedBP,siminit
+import random
+import plotly.plotly as py
+import plotly.graph_objs as go
 
+random.seed()
+count = 3
+
+
+def simulation_process(search_count, number_of_iteration):
+    
+    simple_b_pruning = None
+    improved_b_pruning =None
+    sum_sim = 0
+    sum_imp = 0
+    avr_sim = 0
+    avr_imp = 0
+    fail_sim = 0
+    fail_avr_sim = 0
+    avg_sim_dict = {}
+    max_hop = []
+    avg_hop = []
+    for i in range(5,31):
+        avg_sim_dict[i] = [0,0]
+    
+     
+     
+    node, links = siminit.Initialite_Random_Graph()
+    for x in range(number_of_iteration):
+        source = randomal(node)
+        target = randomal(node)
+        while target == source:
+            target = randomal(node)
+        
+        hops = max_hops()
+#         print(node)
+        simple_b_pruning = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops, search_count )
+#         improved_b_pruning = improved_bisection_pruning(node , link , source, target)
+#         print(simple_b_pruning)
+        if(simple_b_pruning != None):
+            avg_sim_dict[hops][0] += siminit.cost(simple_b_pruning)
+            avg_sim_dict[hops][1] += 1
+        else:
+            fail_sim += 1
+#         sum_imp += siminit.cost(improved_b_pruning)
+    for i in range(5,31):
+        if(avg_sim_dict[i][1] > 0):
+            test_avg = avg_sim_dict[i][0] / avg_sim_dict[i][1]
+            print("Max Hops = " , i , "Average" , test_avg , "Count",avg_sim_dict[i][1])
+            
+    
+    for i in range(5,30):
+        if(avg_sim_dict[i][1] > 0):
+            max_hop.append(avg_sim_dict[i][1])
+            avg_hop.append(avg_sim_dict[i][0])
+             
+    trace0 = go.Scatter(
+    x = max_hop,
+    y = avg_hop,
+    name = 'Simple',
+    line = dict(
+        color = ('rgb(205, 12, 24)'),
+        width = 4))
+    
+    layout = dict(title = 'Average cost when max H is changing',
+              xaxis = dict(title = 'Max-Hop'),
+              yaxis = dict(title = 'Avg Longest Link'),
+              )
+
+# Plot and embed in ipython notebook!
+    fig = dict(data=data, layout=layout)
+    py.iplot(fig, filename='styled-line')
+       
+#     if(fail_sim > 0):
+#         avr_sim = sum_sim / (number_of_iteration - fail_sim)
+#     else:
+#         avr_sim = sum_sim / number_of_iteration
+#     print(avr_sim)
+#     avr_imp = sum_imp / number_of_iteration
+    
+    
+     
+def randomal(nodes):
+    return random.randrange(0 , len(nodes))
+
+def max_hops():
+    return random.randrange(5 , 30)
+
+
+
+simulation_process(count, 100)
+     
