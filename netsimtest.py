@@ -76,10 +76,6 @@ def simulation_process(search_count, number_of_iteration):
             avg_imp_dict[hops][1] += 1
         else:
             fail_imp += 1
-        print("finished a round")
-            
-    for i in avg_imp_dict:
-        print (i)
         
 #     for i in range(5,31):
 #         if(avg_sim_dict[i][1] > 0):
@@ -95,11 +91,6 @@ def simulation_process(search_count, number_of_iteration):
 #             max_imp_hop.append(i)
 #             print("Max Hops = " , i , "Average" , test_imp_avg , "Count",avg_imp_dict[i][1])
             
-#     
-#     for i in range(5,30):
-#         if(avg_sim_dict[i][1] > 0):
-#             max_hop.append(i)
-#             avg_hop.append(avg_sim_dict[i][0])
 #     print(max_hop)
 #     print(avg_hop)
 #     

@@ -4,7 +4,7 @@
 ###
 
 import numpy as np
-from siminit import link,node,djikstra,cost
+from siminit import link,node,djikstra,cost, enable_all_links
 
 ###
 # Instructions:
@@ -12,9 +12,7 @@ from siminit import link,node,djikstra,cost
 # (Page 4, top box)
 ###
 
-def simple_bisection_pruning(nodes,org_links,source,target, constraint, search_count):
-    links = org_links[:]
-    temporaryE = links[:]
+def simple_bisection_pruning(nodes,links,source,target, constraint, search_count):
     saved_route = None
     route = djikstra(nodes,links,source,target)
     if route != None and len(route) <= constraint:
@@ -37,6 +35,6 @@ def simple_bisection_pruning(nodes,org_links,source,target, constraint, search_c
             U = (L+U) / 2
         else:
             L = (L+U) / 2
-        links = temporaryE[:]
+        enable_all_links(links)
         search -= 1
     return saved_route

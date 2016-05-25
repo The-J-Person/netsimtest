@@ -25,6 +25,11 @@ class link:
         self.source = source
         self.cost = cost
         self.target = target
+        self.enabled = True
+    def get_enabled(self):
+        return self.enabled
+    def set_enabled(self, state):
+        self.enabled = state
     def get_source(self):
         return self.source
     def get_cost(self):
@@ -55,6 +60,8 @@ class node:
             if link.get_target() == node:
                 return link
         return None
+    def remove_link(self, link):
+        self.neighbors.remove(link)
     def coordinates(self):
         return self.x , self.y
     def set_dist(self, num):
@@ -83,14 +90,15 @@ def djikstra(nodes,links,source,dest):
         if u == dest:
             break #because we found the destination no need to look further
         for v in u.get_links():
-            alt = u.get_dist() + 1
-            target = v.get_target()
-            if alt < target.get_dist():
-                target.set_dist(alt)
-                target.set_prev(u)
-                unsorted = True #just a variable that help check if changes were made to the objects inside the heap
-        if unsorted: #because i updated the variables but the heap wasn't maintained, i just heapify it again
-            heapify(vertexes) 
+            if v.get_enabled():
+                alt = u.get_dist() + 1
+                target = v.get_target()
+                if alt < target.get_dist():
+                    target.set_dist(alt)
+                    target.set_prev(u)
+                    unsorted = True #just a variable that help check if changes were made to the objects inside the heap
+            if unsorted: #because i updated the variables but the heap wasn't maintained, i just heapify it again
+                heapify(vertexes) 
     #this is the part that saves the distance and route  
     if dest.get_dist() == float("inf"): #if there is no route then we just return None
         return None
@@ -141,3 +149,7 @@ def Initialite_Random_Graph(rect_x=800,rect_y=800,nodes_amount=420,link_dist=75)
             links.append(li)
             links.append(ln)
     return nodes, links
+
+def enable_all_links(links):
+    for link in links:
+        link.set_enabled(True)
