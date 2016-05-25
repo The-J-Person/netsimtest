@@ -147,7 +147,7 @@ def randomal(nodes):
     return random.randrange(0 , len(nodes))
 
 def max_hops():
-    return random.randrange(5 , 30)
+    return random.randrange(5 , 31)
 
 
 
