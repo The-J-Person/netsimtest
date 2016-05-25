@@ -47,6 +47,8 @@ def simulation_process(search_count, number_of_iteration):
     avg_imp_hop = []
     for i in range(5,31):
         avg_sim_dict[i] = [0,0]
+    for i in range(5,31):
+        avg_imp_dict[i] = [0,0]
     
      
      
@@ -139,5 +141,5 @@ def max_hops():
 
 
 
-simulation_process(count, 50)
+simulation_process(count, 500)
      
