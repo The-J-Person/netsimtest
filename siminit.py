@@ -83,7 +83,7 @@ def djikstra(nodes,links,source,dest):
         if u == dest:
             break #because we found the destination no need to look further
         for v in u.get_links():
-            alt = u.get_dist() + v.get_cost()
+            alt = u.get_dist() + 1
             target = v.get_target()
             if alt < target.get_dist():
                 target.set_dist = alt
