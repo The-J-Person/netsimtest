@@ -30,6 +30,21 @@ count = 3
 
 def simulation_process(search_count, number_of_iteration):
     
+    options = ("total_costs","total_hops","success_count","fail_count")
+    dict_simple = {}
+    for i in range(5,31):
+        dict_simple[i] = {}
+        for j in options:
+            dict_simple[i][j] = 0
+    dict_improved = {}
+    for i in range(5,31):
+        dict_improved[i] = {}
+        for j in options:
+            dict_simple[i][j] = 0
+    
+        
+
+    
     simple_b_pruning = None
     improved_b_pruning =None
     sum_sim = 0
@@ -59,27 +74,28 @@ def simulation_process(search_count, number_of_iteration):
         target = randomal(node)
         while target == source:
             target = randomal(node)
-        
+               
         hops = max_hops()
-#         print(node)
-        simple_b_pruning = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops, search_count )
-        improved_b_pruning = improvedBP.improved_bisection_pruning(node , links , node[source], node[target],hops)
-        print(simple_b_pruning)
-        if(simple_b_pruning != None):
-            avg_sim_dict[hops][0] += siminit.cost(simple_b_pruning)
-            avg_sim_dict[hops][1] += 1
-        else:
-            fail_sim += 1
-#         sum_imp += siminit.cost(improved_b_pruning)
-        if(improved_b_pruning != None):
-            avg_imp_dict[hops][0] += siminit.cost(improved_b_pruning)
-            avg_imp_dict[hops][1] += 1
-        else:
-            fail_imp += 1
-            
-        print("finished round:" , x)
-    print("finished everything")
         
+        route_simple = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops, search_count )
+        route_improved = improvedBP.improved_bisection_pruning(node , links , node[source], node[target],hops)
+        
+        print(route_simple)
+        if(simple_b_pruning != None):
+            dict_simple[hops]["total_costs"] += siminit.cost(route_simple)
+            dict_simple[hops]["total_hops"] += len(route_simple)
+            dict_simple[hops]["success_count"] += 1
+        else:
+            dict_simple[hops]["fail_count"] += 1
+        
+        if(route_improved != None):
+            dict_improved[hops]["total_costs"] += siminit.cost(route_improved)
+            dict_improved[hops]["total_hops"] += len(route_improved)
+            dict_improved[hops]["success_count"] += 1
+        else:
+            dict_improved[hops]["fail_count"] += 1
+        
+        """ OFIR EDITED UNTIL HERE"""
 #     for i in range(5,31):
 #         if(avg_sim_dict[i][1] > 0):
 #             test_sim_avg = avg_sim_dict[i][0] / avg_sim_dict[i][1]
