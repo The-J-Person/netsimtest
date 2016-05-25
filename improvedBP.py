@@ -33,13 +33,13 @@ def improved_bisection_pruning(nodes,org_links,source,target, constraint, fails_
             oldlen=newlen
             saved_route = route
             path_concave_cost = cost(route)
-            for link in links():
+            for link in links:
                 if cost(route) >= epsilon*path_concave_cost:
                     links.remove(link)
             newlen = epsilon * path_concave_cost;
         else:
             links = temporaryE.copy()
-            for link in links():
+            for link in links:
                 if link.cost >= (newlen+oldlen)/2:
                     links.remove(link)
             newlen=(newlen+oldlen)/2

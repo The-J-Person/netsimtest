@@ -37,10 +37,14 @@ def simulation_process(search_count, number_of_iteration):
     avr_sim = 0
     avr_imp = 0
     fail_sim = 0
+    fail_imp = 0
     fail_avr_sim = 0
     avg_sim_dict = {}
+    avg_imp_dict = {}
     max_hop = []
     avg_hop = []
+    max_imp_hop = []
+    avg_imp_hop = []
     for i in range(5,31):
         avg_sim_dict[i] = [0,0]
     
@@ -57,7 +61,7 @@ def simulation_process(search_count, number_of_iteration):
         hops = max_hops()
 #         print(node)
         simple_b_pruning = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops, search_count )
-#         improved_b_pruning = improved_bisection_pruning(node , link , source, target)
+#         improved_b_pruning = improvedBP.improved_bisection_pruning(node , links , node[source], node[target],hops)
 #         print(simple_b_pruning)
         if(simple_b_pruning != None):
             avg_sim_dict[hops][0] += siminit.cost(simple_b_pruning)
@@ -65,21 +69,36 @@ def simulation_process(search_count, number_of_iteration):
         else:
             fail_sim += 1
 #         sum_imp += siminit.cost(improved_b_pruning)
+        if(improved_b_pruning != None):
+            avg_imp_dict[hops][0] += siminit.cost(improved_b_pruning)
+            avg_imp_dict[hops][1] += 1
+        else:
+            fail_imp += 1
+        
     for i in range(5,31):
         if(avg_sim_dict[i][1] > 0):
-            test_avg = avg_sim_dict[i][0] / avg_sim_dict[i][1]
-            avg_hop.append(test_avg)
-            print("Max Hops = " , i , "Average" , test_avg , "Count",avg_sim_dict[i][1])
-            
-    
-    for i in range(5,30):
-        if(avg_sim_dict[i][1] > 0):
+            test_sim_avg = avg_sim_dict[i][0] / avg_sim_dict[i][1]
+            avg_hop.append(test_sim_avg)
             max_hop.append(i)
+            print("Max Hops = " , i , "Average" , test_sim_avg , "Count",avg_sim_dict[i][1])
+            
+#     for i in range(5,31):
+#         if(avg_imp_dict[i][1] > 0):
+#             test_imp_avg = avg_imp_dict[i][0] / avg_imp_dict[i][1]
+#             avg_imp_hop.append(test_imp_avg)
+#             max_imp_hop.append(i)
+#             print("Max Hops = " , i , "Average" , test_imp_avg , "Count",avg_imp_dict[i][1])
+            
+#     
+#     for i in range(5,30):
+#         if(avg_sim_dict[i][1] > 0):
+#             max_hop.append(i)
 #             avg_hop.append(avg_sim_dict[i][0])
     print(max_hop)
     print(avg_hop)
     
-    plt.plot(max_hop, avg_hop)
+    plt.plot(max_hop, avg_hop , color = 'r')
+#     plt.plot(max_imp_hop,avg_imp_dict)
     plt.axis([5, 31, 0, 80])
     plt.show()         
 #     trace0 = go.Scatter(
@@ -116,5 +135,5 @@ def max_hops():
 
 
 
-simulation_process(count, 100)
+simulation_process(count, 50)
      
