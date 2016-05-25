@@ -107,12 +107,12 @@ def cost(route):
         if cost<li.get_cost():
             cost=li.get_cost()
     return cost
-
+random.seed()
 def Initialite_Random_Graph(rect_x=800,rect_y=800,nodes_amount=420,link_dist=75):
     graph = [[None]*rect_x]*rect_y
     nodes = []
     links = []
-    random.seed()
+    
     for _ in range(nodes_amount):
         fine = False
         while not fine:
