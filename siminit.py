@@ -8,17 +8,6 @@ from math import sqrt
 from _heapq import heapify, heappush, heappop
 from _ast import Num
 
-###
-# Instructions:
-# Create a grid sized rect_x by rect_y
-# Randomly select nodes_amount cells on the grid as "occupied".
-# For each occupied cell create a node object.
-# For each node, add a connection to any node that is within link_dist distance 
-# (between their corresponding cells, use pythagoras to measure distance, link weight is 1 regardless of distance).
-# Place all nodes in a list and return the list.
-# NOTE: You may have to create your own node class as the ones available online do not appear appropriate for the task.
-###
-
 class link:
     """Essentially a stand in for a cost-target tuple"""
     def __init__(self,source,cost,target):
@@ -47,10 +36,6 @@ class node:
         self.neighbors = []
         self.dist = float("inf")
         self.prev = None
-    #===========================================================================
-    # def add_neighbor(self, cost, target):
-    #     self.neighbors.append(link(cost,target))
-    #===========================================================================
     def add_link(self, li):
         self.neighbors.append(li)
     def get_links(self):
@@ -76,6 +61,7 @@ class node:
         return self.dist < other.dist
     
 def djikstra(nodes,links,source,dest):
+    """An implementation of Djikstra's Algorithm for our Node and Link classes"""
     route = []
     vertexes = []
     for v in nodes:
@@ -110,13 +96,21 @@ def djikstra(nodes,links,source,dest):
     return route
 
 def cost(route):
+    """Returns the concave cost of the given list of links"""
     cost = 0
     for li in route:
         if cost<li.get_cost():
             cost=li.get_cost()
     return cost
+
 random.seed()
+
 def Initialite_Random_Graph(rect_x=800,rect_y=800,nodes_amount=420,link_dist=75):
+    """
+    Creates a random graph by placing nodes in an x by y grid randomly
+    and creating links between them if the distance between them is 
+    under the provided number. 
+    """
     graph = [[None]*rect_x]*rect_y
     nodes = []
     links = []
@@ -151,5 +145,6 @@ def Initialite_Random_Graph(rect_x=800,rect_y=800,nodes_amount=420,link_dist=75)
     return nodes, links
 
 def enable_all_links(links):
+    """Makes all links enabled after some have been disabled"""
     for link in links:
         link.set_enabled(True)
