@@ -177,26 +177,26 @@ def simulation_process(search_count, number_of_iteration):
             avg_hopsi.append(0)
             ovr_perfi.append(0)
         
-    plt.plot(scale,succ_rate, color = 'r')
-    plt.plot(scale,succ_ratei, color = 'g')
+    plt.plot(scale,succ_rate, 'r-',label='Simple Bisection Pruning')
+    plt.plot(scale,succ_ratei, 'g-',label='Improved Bisection Pruning')
     plt.xlabel("Max Hop")
     plt.ylabel("Success Ratio")
     plt.show()
     
-    plt.plot(scale,avg_costs, color = 'r')
-    plt.plot(scale,avg_costsi, color = 'g')
+    plt.plot(scale,avg_costs, 'r-',label='Simple Bisection Pruning')
+    plt.plot(scale,avg_costsi, 'g-',label='Improved Bisection Pruning')
     plt.xlabel("Max Hop")
     plt.ylabel("Average Longest Link")
     plt.show()
     
-    plt.plot(scale,avg_hops, color = 'r')
-    plt.plot(scale,avg_hopsi, color = 'g')
+    plt.plot(scale,avg_hops, 'r-',label='Simple Bisection Pruning')
+    plt.plot(scale,avg_hopsi, 'g-',label='Improved Bisection Pruning')
     plt.xlabel("Max Hop")
     plt.ylabel("Average Hop Count")
     plt.show()
     
-    plt.plot(scale,ovr_perf, color = 'r')
-    plt.plot(scale,ovr_perfi, color = 'g')
+    plt.plot(scale,ovr_perf, 'r-',label='Simple Bisection Pruning')
+    plt.plot(scale,ovr_perfi, 'g-',label='Improved Bisection Pruning')
     plt.xlabel("Max Hop")
     plt.ylabel("Overall Performance")
     plt.show()
@@ -211,5 +211,5 @@ def max_hops():
 
 
 
-simulation_process(count, 35)
+simulation_process(count, 200)
      
