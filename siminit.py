@@ -6,7 +6,6 @@
 import random
 from math import sqrt
 from _heapq import heapify, heappush, heappop
-from _ast import Num
 
 class link:
     """Essentially a stand in for a cost-target tuple"""
@@ -127,7 +126,6 @@ def Initialite_Random_Graph(rect_x=800,rect_y=800,nodes_amount=420,link_dist=75)
             xo, yo = N.coordinates()
             xd = abs(x-xo)
             yd = abs(y-yo)
-            # dist^2 == xd^2 + yd^2
             if link_dist**2>=xd**2+yd**2:
                 near_nodes.append(N)
         graph[y][x] = node(x,y)

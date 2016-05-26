@@ -3,10 +3,9 @@
 # Simple-Bisection Pruning Algorithm
 ###
 
-import numpy as np
-from siminit import link,node,djikstra,cost, enable_all_links
-
-def simple_bisection_pruning(nodes,links,source,target, constraint, search_count):
+from siminit import link,djikstra,cost, enable_all_links
+""" missing information: search count value used by the researchers , will complete ourselves """
+def simple_bisection_pruning(nodes,links,source,target, constraint, search_count = 3):
     saved_route = None
     route = djikstra(nodes,links,source,target)
     if route != None and len(route) <= constraint:

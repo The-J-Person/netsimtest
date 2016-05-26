@@ -8,7 +8,6 @@ import random
 import matplotlib.pyplot as plt
 
 random.seed()
-count = 3
 
 def randomal(nodes):
     return random.randrange(0 , len(nodes))
@@ -16,7 +15,7 @@ def randomal(nodes):
 def max_hops():
     return random.randrange(5 , 31)
 
-def simulation_process(search_count, number_of_iteration):
+def simulation_process(number_of_iteration):
     
     options = ("total_costs","total_hops","success_count","fail_count")
     dict_simple = {}
@@ -46,7 +45,7 @@ def simulation_process(search_count, number_of_iteration):
                
         hops = max_hops()
         
-        route_simple = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops, search_count )
+        route_simple = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops)
         route_improved = improvedBP.improved_bisection_pruning(node , links , node[source], node[target],hops)
         
         if(route_simple != None):
@@ -131,4 +130,4 @@ def simulation_process(search_count, number_of_iteration):
     print (dict_simple)
     print (dict_improved)
 
-simulation_process(count, 5000)
+simulation_process(5000)

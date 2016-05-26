@@ -3,17 +3,15 @@
 # Improved-Bisection Pruning Algorithm
 ###
 
-from siminit import link,node,djikstra,cost, enable_all_links
+from siminit import link,djikstra,cost, enable_all_links
 
 """
-missing information: epsilon value (pruning factor) 
+missing information: epsilon value (pruning factor) & fails_allowed, will comlete that on our own
 """
 def improved_bisection_pruning(nodes,links,source,target, constraint, fails_allowed = 3, R = 75, epsilon = 0.75):
     newlen = R
     oldlen = R
     search = 1
-#     links = org_links[:]
-#     temporaryE = links[:]
     saved_route = None
     while search != 0:
         route = djikstra(nodes, links, source, target)
