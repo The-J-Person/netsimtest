@@ -5,16 +5,6 @@
 
 from siminit import link,node,djikstra,cost, enable_all_links
 
-###
-# Instructions:
-# Implement Improved-Bisection Pruning Algorithm
-# (Page 4, bottom box)
-###
-
-
-#
-#
-#
 """
 missing information: epsilon value (pruning factor) 
 """

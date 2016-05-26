@@ -6,12 +6,6 @@
 import numpy as np
 from siminit import link,node,djikstra,cost, enable_all_links
 
-###
-# Instructions:
-# Implement Simple-Bisection Pruning Algorithm
-# (Page 4, top box)
-###
-
 def simple_bisection_pruning(nodes,links,source,target, constraint, search_count):
     saved_route = None
     route = djikstra(nodes,links,source,target)
