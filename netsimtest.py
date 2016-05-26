@@ -93,7 +93,7 @@ def simulation_process(search_count, number_of_iteration):
             dict_improved[hops]["success_count"] += 1
         else:
             dict_improved[hops]["fail_count"] += 1
-        
+        print ("finished Iteration:" , x)
         """ OFIR EDITED UNTIL HERE"""
 #     for i in range(5,31):
 #         if(avg_sim_dict[i][1] > 0):
@@ -204,6 +204,9 @@ def simulation_process(search_count, number_of_iteration):
     plt.ylabel("Overall Performance")
     plt.legend()
     plt.show()
+    
+    print (dict_simple)
+    print (dict_improved)
     ### J stopped editing here ###
     
      
