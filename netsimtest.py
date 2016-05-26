@@ -152,14 +152,30 @@ def simulation_process(search_count, number_of_iteration):
     ovr_perfi = []
     for i in range(5,31):
         scale.append(i)
-        avg_costs.append(dict_simple[i]["total_costs"] / dict_simple[i]["success_count"])
-        succ_rate.append(dict_simple[10]["success count"] / (  dict_simple[10]["success_count"] +  dict_simple[10]["fail_count"] ))
-        avg_hops.append(dict_simple[10]["total_hops"] /  dict_simple[10]["success_count"])
-        ovr_perf.append(succ_rate[i-5]/avg_costs[i-5])*75
-        avg_costsi.append(dict_improved[i]["total_costs"] / dict_improved[i]["success_count"])
-        succ_ratei.append(dict_improved[10]["success count"] / (  dict_improved[10]["success_count"] +  dict_improved[10]["fail_count"] ))
-        avg_hopsi.append(dict_improved[10]["total_hops"] /  dict_improved[10]["success_count"])
-        ovr_perfi.append(succ_ratei[i-5]/avg_costsi[i-5])*75
+        if dict_simple[i]["success_count"]>0 :
+            succc=dict_simple[i]["success_count"] / (  dict_simple[i]["success_count"] +  dict_simple[i]["fail_count"] )
+            avggg=dict_simple[i]["total_costs"] / dict_simple[i]["success_count"]
+            avg_costs.append(avggg)
+            succ_rate.append(succc)
+            avg_hops.append(dict_simple[i]["total_hops"] /  dict_simple[i]["success_count"])
+            ovr_perf.append((succc/avggg)*75)
+        else : 
+            avg_costs.append(0)
+            succ_rate.append(0)
+            avg_hops.append(0)
+            ovr_perf.append(0)
+        if dict_improved[i]["success_count"]>0 :
+            succi=dict_improved[i]["success_count"] / (  dict_improved[i]["success_count"] +  dict_improved[i]["fail_count"] )
+            avggi=dict_improved[i]["total_costs"] / dict_improved[i]["success_count"]
+            avg_costsi.append(avggi)
+            succ_ratei.append(succi)
+            avg_hopsi.append(dict_improved[i]["total_hops"] /  dict_improved[i]["success_count"])
+            ovr_perfi.append((succi/avggi)*75)
+        else :
+            avg_costsi.append(0)
+            succ_ratei.append(0)
+            avg_hopsi.append(0)
+            ovr_perfi.append(0)
         
     plt.plot(scale,succ_rate, color = 'r')
     plt.plot(scale,succ_ratei, color = 'g')
