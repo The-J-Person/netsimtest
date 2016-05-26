@@ -80,8 +80,7 @@ def simulation_process(search_count, number_of_iteration):
         route_simple = simpleBP.simple_bisection_pruning(node , links, node[source], node[target],hops, search_count )
         route_improved = improvedBP.improved_bisection_pruning(node , links , node[source], node[target],hops)
         
-        print(route_simple)
-        if(simple_b_pruning != None):
+        if(route_simple != None):
             dict_simple[hops]["total_costs"] += siminit.cost(route_simple)
             dict_simple[hops]["total_hops"] += len(route_simple)
             dict_simple[hops]["success_count"] += 1
