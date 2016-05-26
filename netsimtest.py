@@ -139,7 +139,52 @@ def simulation_process(search_count, number_of_iteration):
 #         avr_sim = sum_sim / number_of_iteration
 #     print(avr_sim)
 #     avr_imp = sum_imp / number_of_iteration
+
+    ### J started editing here ###
+    scale = []
+    avg_costs = []
+    succ_rate = []
+    avg_hops = []
+    ovr_perf = []
+    avg_costsi = []
+    succ_ratei = []
+    avg_hopsi = []
+    ovr_perfi = []
+    for i in range(5,31):
+        scale.append(i)
+        avg_costs.append(dict_simple[i]["total_costs"] / dict_simple[i]["success_count"])
+        succ_rate.append(dict_simple[10]["success count"] / (  dict_simple[10]["success_count"] +  dict_simple[10]["fail_count"] ))
+        avg_hops.append(dict_simple[10]["total_hops"] /  dict_simple[10]["success_count"])
+        ovr_perf.append(succ_rate[i-5]/avg_costs[i-5])*75
+        avg_costsi.append(dict_improved[i]["total_costs"] / dict_improved[i]["success_count"])
+        succ_ratei.append(dict_improved[10]["success count"] / (  dict_improved[10]["success_count"] +  dict_improved[10]["fail_count"] ))
+        avg_hopsi.append(dict_improved[10]["total_hops"] /  dict_improved[10]["success_count"])
+        ovr_perfi.append(succ_ratei[i-5]/avg_costsi[i-5])*75
+        
+    plt.plot(scale,succ_rate, color = 'r')
+    plt.plot(scale,succ_ratei, color = 'g')
+    plt.xlabel("Max Hop")
+    plt.ylabel("Success Ratio")
+    plt.show()
     
+    plt.plot(scale,avg_costs, color = 'r')
+    plt.plot(scale,avg_costsi, color = 'g')
+    plt.xlabel("Max Hop")
+    plt.ylabel("Average Longest Link")
+    plt.show()
+    
+    plt.plot(scale,avg_hops, color = 'r')
+    plt.plot(scale,avg_hopsi, color = 'g')
+    plt.xlabel("Max Hop")
+    plt.ylabel("Average Hop Count")
+    plt.show()
+    
+    plt.plot(scale,ovr_perf, color = 'r')
+    plt.plot(scale,ovr_perfi, color = 'g')
+    plt.xlabel("Max Hop")
+    plt.ylabel("Overall Performance")
+    plt.show()
+    ### J stopped editing here ###
     
      
 def randomal(nodes):
